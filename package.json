@@ -1,0 +1,36 @@
+{
+  "name": "yt-downloader",
+  "description": "an easy CLI for downloading Youtube Videos",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "type": "commonjs",
+  "license": "MIT",
+  "author": "BruderJulian",
+  "homepage": "https://github.com/BruderJulian/yt-downloader-js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BruderJulian/yt-downloader-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/BruderJulian/yt-downloader-js/issues"
+  },
+  "keywords": [
+    "yt",
+    "YT",
+    "youtube",
+    "yt-dlp",
+    "youtube-dl",
+    "youtube-dl-wrapper",
+    "youtube-wrapper",
+    "youtube-downloader",
+    "yt-downloader",
+    "binary",
+    "nodejs"
+  ],
+  "files": [
+    "src/"
+  ],
+  "bin": {
+    "yt-downloader": "src/index.js"
+  }
+}
