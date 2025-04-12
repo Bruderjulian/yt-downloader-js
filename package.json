@@ -7,6 +7,10 @@
   "license": "MIT",
   "author": "BruderJulian",
   "homepage": "https://github.com/BruderJulian/yt-downloader-js",
+  "scripts": {
+    "download": "node src/index.js download",
+    "init": "node src/index.js init"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/BruderJulian/yt-downloader-js.git"
@@ -18,14 +22,17 @@
     "yt",
     "YT",
     "youtube",
+    "yt-dl",
     "yt-dlp",
     "youtube-dl",
-    "youtube-dl-wrapper",
-    "youtube-wrapper",
-    "youtube-downloader",
+    "youtube-dlp",
+    "yt-download",
+    "youtube-download",
     "yt-downloader",
-    "binary",
-    "nodejs"
+    "youtube-downloader",
+    "downloader",
+    "download",
+    "cli"
   ],
   "files": [
     "src/"

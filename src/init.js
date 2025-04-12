@@ -37,8 +37,8 @@ const yt_dl_fileName =
 const ffmpeg_fileName = `ffmpeg-${platform}-${process.arch}${
   platform === "win32" ? ".exe" : ""
 }`;
-const yt_dl_path = join(__dirname, yt_dl_fileName);
-const ffmpeg_path = join(__dirname, ffmpeg_fileName);
+const yt_dl_path = join(process.cwd(), yt_dl_fileName);
+const ffmpeg_path = join(process.cwd(), ffmpeg_fileName);
 const yt_dl_host = "https://api.github.com/repos/yt-dlp/yt-dlp/releases/latest";
 const ffmpeg_host = `https://https://github.com/Bruderjulian/yt-downloader-js/raw/master/platforms/${platform}-${process.arch}`;
 let GITHUB_TOKEN;
@@ -90,23 +90,31 @@ async function install_FFMPEG() {
 
 async function init(refresh = false, gh_token) {
   GITHUB_TOKEN = gh_token;
-  let exists = existsSync(yt_dl_path);
-  if (exists && refresh) {
-    console.log("Removing yt-dl");
-    await rm(yt_dl_path, { retryDelay: 2 });
-    await install_YTDL();
-  } else if (!exists) {
-    await install_YTDL();
-  } else console.log("Skipping. Has already installed yt-dl!");
+  try {
+    let exists = existsSync(yt_dl_path);
+    if (exists && refresh) {
+      console.log("Removing yt-dl");
+      await rm(yt_dl_path, { retryDelay: 2 });
+      await install_YTDL();
+    } else if (!exists) {
+      await install_YTDL();
+    } else console.log("Skipping. Has already installed yt-dl!");
+  } catch (err) {
+    console.error("Could not install yt-dlp due: " + err);
+  }
 
-  exists = existsSync(ffmpeg_path);
-  if (exists && refresh) {
-    console.log("Removing ffmpeg");
-    await rm(ffmpeg_path, { retryDelay: 2, recursive: true });
-    await install_FFMPEG();
-  } else if (!exists) {
-    await install_FFMPEG();
-  } else console.log("Skipping. Has already installed ffmeg!");
+  try {
+    exists = existsSync(ffmpeg_path);
+    if (exists && refresh) {
+      console.log("Removing ffmpeg");
+      await rm(ffmpeg_path, { retryDelay: 2, recursive: true });
+      await install_FFMPEG();
+    } else if (!exists) {
+      await install_FFMPEG();
+    } else console.log("Skipping. Has already installed ffmeg!");
+  } catch (err) {
+    console.error("Could not install ffmpeg due: " + err);
+  }
 
   console.log("Finished!");
 }

@@ -1,7 +1,7 @@
 const exec = require("child_process").exec;
 const join = require("path").join;
-const ytdlp_path = join(__dirname, "/yt-dlp.exe");
-const ffmpeg_path = join(__dirname, "/ffmpeg");
+const ytdlp_path = join(process.cwd(), "/yt-dlp.exe");
+const ffmpeg_path = join(process.cwd(), "/ffmpeg");
 
 async function download(url, output) {
   if (!url) throw new SyntaxError("No Url specified");
