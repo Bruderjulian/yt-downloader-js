@@ -37,13 +37,17 @@ const yt_dl_fileName =
     ? "yt-dlp_macos"
     : "yt-dlp";
 const ffmpeg_fileName = `ffmpeg-${platform}-${process.arch}${
-  platform === "win32" ? ".exe" : ""
+  platform === "win32" ? ".exe.gz" : ".gz"
 }`;
-const yt_dl_path = join(process.cwd(), yt_dl_fileName);
-const ffmpeg_path = join(process.cwd(), ffmpeg_fileName);
+const yt_dl_path = join(__dirname, "../", yt_dl_fileName);
+const ffmpeg_path = join(
+  __dirname,
+  "../",
+  `ffmpeg${platform === "win32" ? ".exe" : ""}`
+);
 const yt_dl_host = "https://api.github.com/repos/yt-dlp/yt-dlp/releases/latest";
-const ffmpeg_host1 = `https://https://github.com/Bruderjulian/yt-downloader-js/raw/master/ffmpeg-patched/${platform}-${process.arch}`;
-const ffmpeg_host2 = `https://https://github.com/Bruderjulian/yt-downloader-js/raw/master/ffmpeg-unpatched/${platform}-${process.arch}`;
+const ffmpeg_url1 = `https://github.com/Bruderjulian/yt-downloader-js/raw/main/ffmpeg_patched-gz/${ffmpeg_fileName}`;
+const ffmpeg_url2 = `https://github.com/Bruderjulian/yt-downloader-js/raw/main/ffmpeg_unpatched-gz/${ffmpeg_fileName}`;
 
 let GITHUB_TOKEN;
 
@@ -76,9 +80,9 @@ async function install_YTDL() {
 }
 
 async function install_FFMPEG() {
-  console.log("installing ffmpeg from: " + ffmpeg_host1);
+  console.log("installing ffmpeg from: " + ffmpeg_url1);
   const [binary] = await Promise.all([
-    getBinary(ffmpeg_host1, ffmpeg_fileName, ffmpeg_host2),
+    getBinary(ffmpeg_url1, ffmpeg_fileName, ffmpeg_url2),
     //mkdir(ffmpeg_path, { recursive: true }),
   ]);
   console.log("writing binaries to: " + ffmpeg_path);
