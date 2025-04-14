@@ -1,5 +1,7 @@
-const download = require("./downloader.js");
-const init = require("./init.js");
+#!/usr/bin/env node
+
+const download = require("../src/downloader.js");
+const init = require("../src/init.js");
 
 const argv = process.argv;
 if (argv[2] === "download") {
