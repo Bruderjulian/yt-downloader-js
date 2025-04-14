@@ -9,8 +9,7 @@
   "homepage": "https://github.com/BruderJulian/yt-downloader-js",
   "scripts": {
     "download": "node bin/index.js download",
-    "init": "node bin/index.js init",
-    "postinstall": "node bin/index.js init -r"
+    "init": "node bin/index.js init"
   },
   "repository": {
     "type": "git",
@@ -46,5 +45,7 @@
   "bin": {
     "yt-downloader": "bin/index.js"
   },
-  "engines": {"node": ">=12.0.0"}
+  "engines": {
+    "node": ">=12.0.0"
+  }
 }
