@@ -6,12 +6,13 @@ It's quite easy to use and is decently fast by levering the `yt-dlp` and `ffmpeg
 
 The official repositories of these:
 
-- yt-dlp:
-- ffmpeg:
+- yt-dlp: https://github.com/yt-dlp/yt-dlp
+- ffmpeg (patched): https://github.com/yt-dlp/FFmpeg-Builds
+- ffmpeg (unpatched): https://github.com/BtbN/FFmpeg-Builds
 
 ## Features:
 
-- small (only 9.5kb), simple and fast
+- small (only 9.8kb), simple and fast
 - auto install of the latest binaries (can also be done manually)
 - no dependencies
 - logging
@@ -46,6 +47,8 @@ yt-downloader download <url> [output_path]
 installs all required binaries. Should be triggered automatically on `postinstall`!
 If the binaries are already present, it'll skip the step. The `-r` flag will disable this and replace them with fresh ones!
 Optionally a Github Token can be specified with `-t` followed by the token. **Only necessary when for example evading rate-limiting!!**
+
+Required Binaries: `yt-dlp` and `ffmpeg` (patched version; unpatched as fallback)
 
 Pattern:
 
