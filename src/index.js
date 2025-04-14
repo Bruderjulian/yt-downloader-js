@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const download = require("./downloader.js");
 const init = require("./init.js");
 
