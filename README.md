@@ -12,7 +12,7 @@ The official repositories of these:
 
 ## Features:
 
-- small (only 9.8kb), simple and fast
+- small (only 10.2kb), simple and fast
 - auto install of the latest binaries (can also be done manually)
 - no dependencies
 - logging

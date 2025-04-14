@@ -2,15 +2,15 @@
   "name": "@julizey/yt-downloader",
   "description": "an easy CLI for downloading Youtube Videos",
   "version": "1.0.0",
-  "main": "src/index.js",
+  "main": "bin/index.js",
   "type": "commonjs",
   "license": "MIT",
   "author": "Julizey",
   "homepage": "https://github.com/BruderJulian/yt-downloader-js",
   "scripts": {
-    "download": "node src/index.js download",
-    "init": "node src/index.js init",
-    "postinstall": "node src/index.js init -r"
+    "download": "node bin/index.js download",
+    "init": "node bin/index.js init",
+    "postinstall": "node bin/index.js init -r"
   },
   "repository": {
     "type": "git",
@@ -40,10 +40,11 @@
     "cli"
   ],
   "files": [
-    "src/"
+    "src/",
+    "bin"
   ],
   "bin": {
-    "yt-downloader": "src/index.js"
+    "yt-downloader": "bin/index.js"
   },
   "engines": {"node": ">=12.0.0"}
 }
