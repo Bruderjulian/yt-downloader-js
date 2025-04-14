@@ -1,11 +1,25 @@
 "use strict";
 
-const { chmod, rm } = require("node:fs/promises");
-const { pipeline } = require("node:stream/promises");
-const { createWriteStream, existsSync } = require("node:fs");
-const { join } = require("path");
+const {
+  createWriteStream,
+  existsSync,
+  promises: { chmod, rm },
+} = require("fs");
+const join = require("path").join;
+const createGunzip = require("zlib").createGunzip;
+const stream = require("stream");
 
-const { createGunzip } = require("zlib");
+const pipeline =
+  stream && stream.promises && stream.promises.pipeline
+    ? stream.promises.pipeline
+    : function pipelinePolyfill(...streams) {
+        return new Promise(function (resolve, reject) {
+          stream.pipeline(...streams, (err) => {
+            if (err) reject(err);
+            else resolve();
+          });
+        });
+      };
 
 let platform = process.platform.toLowerCase();
 platform =
