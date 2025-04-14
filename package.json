@@ -9,7 +9,8 @@
   "homepage": "https://github.com/BruderJulian/yt-downloader-js",
   "scripts": {
     "download": "node src/index.js download",
-    "init": "node src/index.js init"
+    "init": "node src/index.js init",
+    "postinstall": "node src/index.js init -r"
   },
   "repository": {
     "type": "git",

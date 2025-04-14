@@ -114,7 +114,7 @@ async function init(refresh = false, gh_token) {
       await install_FFMPEG();
     } else if (!exists) {
       await install_FFMPEG();
-    } else console.log("Skipping ffmpeg. Has already installed ffmeg!\n");
+    } else console.log("Skipping ffmpeg. Has already installed ffmpeg!\n");
   } catch (err) {
     console.error("Could not install ffmpeg due: " + err);
   }
