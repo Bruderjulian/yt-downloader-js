@@ -1,11 +1,11 @@
 {
-  "name": "yt-downloader",
+  "name": "@julizey/yt-downloader",
   "description": "an easy CLI for downloading Youtube Videos",
   "version": "1.0.0",
   "main": "src/index.js",
   "type": "commonjs",
   "license": "MIT",
-  "author": "BruderJulian",
+  "author": "Julizey",
   "homepage": "https://github.com/BruderJulian/yt-downloader-js",
   "scripts": {
     "download": "node src/index.js download",
