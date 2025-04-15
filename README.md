@@ -13,24 +13,26 @@ The official repositories of these:
 ## Features:
 
 - small (only 10.2kb), simple and fast
-- auto install of the latest binaries (can also be done manually)
+- installation of the latest binaries
 - no dependencies
 - logging
 
 ## Install
 
+Install the package with [npm](https://www.npmjs.com/):
+
 ```bash
 npm i yt-downloader
 ```
 
-The `postinstall` script should automatically download all binaries! However the script can be manually triggered - See [Init](#init)!
+After the installation, the downloader must be initialized with `yt-downloader init` - See [Init](#init)!
 
 ## Usage
 
 The cli is accessible under `yt-downloader`. It only has two commands:
 
 - `download`: downloads a youtube video from a given url
-- `init`:
+- `init`: downloads all required dependencies/binaries
 
 ### download
 
@@ -44,7 +46,7 @@ yt-downloader download <url> [output_path]
 
 ### init
 
-installs all required binaries. Should be triggered automatically on `postinstall`!
+installs all required binaries for the downloader! Must be executed when installing the package!
 If the binaries are already present, it'll skip the step. The `-r` flag will disable this and replace them with fresh ones!
 Optionally a Github Token can be specified with `-t` followed by the token. **Only necessary when for example evading rate-limiting!!**
 
@@ -55,3 +57,17 @@ Pattern:
 ```bash
 yt-downloader init [-r] [-t gh_token]
 ```
+
+## Getting the binaries yourself
+
+If you want to get them yourself, you can do that pretty easily. Just get the **correct one for your system** from the above mentioned repos!
+Sometimes when initializing not the correct ones are getting downloaded, in that case you need to get also yourself and create bug report!
+
+## Contributing
+
+Feel free to contribute to the project adding features, proposing features, filling bug reports creating pull request, etc!
+I'm all ways open for help!
+
+## License
+
+The entire project, except for the binaries them self, is licensed under the [MIT Lisence](./LICENSE).
