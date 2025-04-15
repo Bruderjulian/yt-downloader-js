@@ -32,7 +32,7 @@ After the installation, the downloader must be initialized with `yt-downloader i
 The cli is accessible under `yt-downloader`. It only has two commands:
 
 - `download`: downloads a youtube video from a given url
-- `init`: downloads all required dependencies/binaries
+- `init`: downloads all required dependencies/binaries and performs checks
 
 ### download
 
@@ -46,7 +46,7 @@ yt-downloader download <url> [output_path]
 
 ### init
 
-installs all required binaries for the downloader! Must be executed when installing the package!
+installs all required binaries for the downloader and performs some checks! Must be executed when installing the package!
 If the binaries are already present, it'll skip the step. The `-r` flag will disable this and replace them with fresh ones!
 Optionally a Github Token can be specified with `-t` followed by the token. **Only necessary when for example evading rate-limiting!!**
 
@@ -62,6 +62,8 @@ yt-downloader init [-r] [-t gh_token]
 
 If you want to get them yourself, you can do that pretty easily. Just get the **correct one for your system** from the above mentioned repos!
 Sometimes when initializing not the correct ones are getting downloaded, in that case you need to get also yourself and create bug report!
+
+The reason why the binary for ffmpeg is hosted on the repository for this package because the filenames, which are crucial for fetching, are hard to understand and reconstruct for the program!
 
 ## Contributing
 

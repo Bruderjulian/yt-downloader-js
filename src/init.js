@@ -8,6 +8,7 @@ const {
 const join = require("path").join;
 const createGunzip = require("zlib").createGunzip;
 const stream = require("stream");
+var exec = require("child_process").exec;
 
 const pipeline =
   stream && stream.promises && stream.promises.pipeline
@@ -105,6 +106,86 @@ async function install_FFMPEG() {
   console.log("Successfully installed!\n");
 }
 
+async function fetchRetry(url, fallback_url, tries = 2) {
+  const headers = GITHUB_TOKEN
+    ? { Authorization: `Bearer ${GITHUB_TOKEN}` }
+    : {};
+  function onError(err) {
+    if (--tries <= 0) {
+      if (!fallback_url || url === fallback_url) {
+        throw "Could not fetch from url: " + url;
+      } else {
+        console.error("Fetch failed! Using fallback! URL: " + url);
+        url = fallback_url;
+        tries = 2;
+      }
+    } else {
+      console.warn("Fetch failed! Will try again! URL: " + url);
+    }
+    return wait(200).then(() => fetchRetry(url, fallback_url, tries));
+  }
+  return fetch(url, headers).catch(onError);
+}
+
+function wait(delay) {
+  return new Promise((resolve) => setTimeout(resolve, delay));
+}
+
+function getPythonVersion() {
+  return new Promise(async (resolve, reject) => {
+    let result = await execute("py --version");
+    if (result.err) {
+      console.log("Couldn't not get python version! Trying again!");
+    } else return resolve(result.out);
+
+    result = await execute("python --version");
+    if (result.err) {
+      console.log("Couldn't not get python version! Trying again!");
+    } else return resolve(result.out);
+
+    result = await execute(
+      'py -c "import platform; print(platform.python_version())"'
+    );
+    if (result.err) {
+      console.log("Couldn't not get python version! Trying again!");
+    } else return resolve(result.out);
+
+    result = await execute(
+      'python -c "import platform; print(platform.python_version())"'
+    );
+    if (result.err) {
+      console.log("Failed to get python version!");
+    } else return resolve(null);
+  });
+}
+
+async function checkPython() {
+  let result = await getPythonVersion();
+  if (result === null || typeof result !== "string") {
+    console.log("It MAY not work without a valid python installation!");
+  }
+  result = result
+    .substring(result.indexOf(".") - 1, result.lastIndexOf(".") + 2)
+    .split(".");
+  if (
+    parseInt(result[0]) > 3 ||
+    (parseInt(result[0]) === 3 && parseInt(result[1]) >= 9)
+  ) {
+    console.log("The valid python version detected!");
+  } else {
+    console.log("The version of the python installation MAY not be compatible");
+  }
+}
+
+function execute(cmd) {
+  return new Promise((resolve, reject) => {
+    exec(cmd, function (err, stdout, stderr) {
+      if (err) resolve({ out: stderr, err: true });
+      resolve({ out: stdout, err: false });
+    });
+  });
+}
+
 async function init(refresh = false, gh_token) {
   GITHUB_TOKEN = gh_token;
   try {
@@ -133,32 +214,13 @@ async function init(refresh = false, gh_token) {
     console.error("Could not install ffmpeg due: " + err);
   }
 
-  console.log("\nFinished!");
-}
-
-async function fetchRetry(url, fallback_url, tries = 2) {
-  const headers = GITHUB_TOKEN
-    ? { Authorization: `Bearer ${GITHUB_TOKEN}` }
-    : {};
-  function onError(err) {
-    if (--tries <= 0) {
-      if (!fallback_url || url === fallback_url) {
-        throw "Could not fetch from url: " + url;
-      } else {
-        console.error("Fetch failed! Using fallback! URL: " + url);
-        url = fallback_url;
-        tries = 2;
-      }
-    } else {
-      console.warn("Fetch failed! Will try again! URL: " + url);
-    }
-    return wait(200).then(() => fetchRetry(url, fallback_url, tries));
+  try {
+    await checkPython();
+  } catch (err) {
+    console.error("Failed to check Python version");
   }
-  return fetch(url, headers).catch(onError);
-}
 
-function wait(delay) {
-  return new Promise((resolve) => setTimeout(resolve, delay));
+  console.log("\nFinished!");
 }
 
 module.exports = init;
